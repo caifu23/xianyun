@@ -1,7 +1,5 @@
 <template>
-  <div>
-    主页
-  </div>
+  <div> 攻略 </div>
 </template>
 
 <script>
