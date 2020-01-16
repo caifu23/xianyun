@@ -1,6 +1,6 @@
 <template>
-  <div>
-    主页
+  <div class="container">
+    
   </div>
 </template>
 
