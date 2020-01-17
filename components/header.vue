@@ -17,7 +17,18 @@
         </el-row>
         <!-- 登录/注册 -->
         <div class="login">
-          <nuxt-link to="/user/login"> 登录 / 注册 </nuxt-link>
+          <nuxt-link to="/user/login" v-if="!$store.state.user.userInfo.user"> 登录 / 注册 </nuxt-link>
+          <el-dropdown v-if="$store.state.user.userInfo.user">
+            <span class="el-dropdown-link">
+              <img :src=" $axios.defaults.baseURL + $store.state.user.userInfo.user.defaultAvatar" alt="">
+              {{ $store.state.user.userInfo.user.nickname }}
+              <i class="el-icon-arrow-down el-icon--right"></i>
+            </span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item>个人中心</el-dropdown-item>
+              <el-dropdown-item>退出</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
         </div>
       </el-row>
   </div>
@@ -75,6 +86,15 @@ export default {
           color: #409eff;
         }
       }
+    }
+  }
+
+  .el-dropdown-link {
+    img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      vertical-align: middle;
     }
   }
 </style>
