@@ -37,7 +37,6 @@ export default {
     data(){
         // 验证用户名
         var validateUsername = (rule,value,callback) => {
-            console.log(value)
             let reg = /^1[3-9][0-9]{9}$/
             if(reg.test(value)) {
                 callback()
@@ -69,22 +68,26 @@ export default {
             // 二次验证
             this.$refs.form.validate((vaild) => {
                 if(vaild) {
-                    // 发起登录请求
-                    this.$axios({
-                        method: 'post',
-                        url: '/accounts/login',
-                        data: this.form
-                    }).then( res => {
-                        console.log(res)
-                        // 待存储数据 token user 
-                        let { data } = res
-                        // this.$store.state.user.userInfo
-                        console.log(this.$store.state.user.userInfo)
-                        // console.log(this.$store.state)
-                        this.$store.commit('user/setUserInfo', data)
-                        console.log(this.$store.state.user.userInfo)
-                        // 登录成功跳转主页
-                        // this.$router.push('/')
+                    // // 发起登录请求
+                    // this.$axios({
+                    //     method: 'post',
+                    //     url: '/accounts/login',
+                    //     data: this.form
+                    // }).then( res => {
+                    //     console.log(res)
+                    //     // 待存储数据 token user 
+                    //     let { data } = res
+                    //     this.$store.commit('user/setUserInfo', data)
+                    //     // 登录成功跳转主页
+                    //     // this.$router.push('/')
+                    // })
+                    this.$store.dispatch('user/login', this.form).then(res => {
+                        // 成功提示
+                        this.$message({
+                            type: 'success',
+                            message: '登录成功,正在跳转'
+                        })
+                        // 跳转到首页
                     })
                 }
             })
